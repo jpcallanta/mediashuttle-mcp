@@ -7,16 +7,22 @@ import (
 	"github.com/mark3labs/mcp-go/server"
 	"github.com/spf13/cobra"
 
+	"mediashuttle-mcp/internal/client"
 	msserver "mediashuttle-mcp/internal/server"
 )
 
 var apiKey string
+var demo bool
 
 func init() {
 	root.Flags().StringVar(
 		&apiKey, "key", "",
 		"Media Shuttle API key"+
 			" (overrides MS_API_KEY env var)",
+	)
+	root.Flags().BoolVar(
+		&demo, "demo", false,
+		"Run capability demo instead of MCP server",
 	)
 }
 
@@ -39,6 +45,12 @@ var root = &cobra.Command{
 					" use --key flag" +
 					" or set MS_API_KEY env var",
 			)
+		}
+
+		if demo {
+			c := client.NewClient(apiKey)
+			RunDemo(c)
+			return nil
 		}
 
 		s := msserver.NewMCPServer(apiKey)

@@ -4,19 +4,8 @@
 *.dll
 *.so
 *.dylib
-*.out
-*.test
+mediashuttle-mcp
 *.prof
-
-# Go binary
-./mediashuttle-mcp
-
-# Test binary, built with `go test -c`
-*.test
-
-# Output of the go coverage tool
-*.out
-*.html
 
 # Dependency directories
 vendor/
